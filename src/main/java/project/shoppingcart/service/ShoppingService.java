@@ -56,7 +56,7 @@ public class ShoppingService implements CartService {
     }
 
     @Override
-    public CartDTO addToCart(CartEntity cartItem) {
+    public CartEntity addToCart(CartEntity cartItem) {
         return null;
     }
 
