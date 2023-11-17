@@ -56,11 +56,7 @@ public class ShoppingService implements CartService {
     }
 
     @Override
-<<<<<<< HEAD
-    public CartEntity addToCart(CartEntity cartItem) {
-=======
     public CartDTO addToCart(CartEntity cartItem) {
->>>>>>> 4f9acfb (search)
         return null;
     }
 
