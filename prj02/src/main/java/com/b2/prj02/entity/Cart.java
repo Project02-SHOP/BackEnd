@@ -12,21 +12,21 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "option")
-public class Option {
+@Table(name = "cart")
+public class Cart {
     @javax.persistence.Id
     @org.springframework.data.annotation.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "option_idx")
-    private Long optionId;
+    @Column(name = "cart_idx")
+    private Long cartId;
 
-    @ManyToOne
-    @JoinColumn(name = "product_idx")
-    private Product product;
+    @OneToOne
+    @JoinColumn(name = "user_idx")
+    private User user;
 
-    private String option;
+    @Column(name = "total_amount")
+    private Integer totalAmount;
 
-    @Column(name = "option_price")
-    private Double optionPrice;
-
+    @Column(name = "total_price")
+    private Double totalPrice;
 }
