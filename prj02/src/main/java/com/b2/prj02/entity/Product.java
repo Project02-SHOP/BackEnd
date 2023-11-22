@@ -1,5 +1,6 @@
 package com.b2.prj02.entity;
 
+import com.b2.prj02.exception.NotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -53,4 +54,9 @@ public class Product {
     private List<Option> option;
 
 
+    public void buy(Integer amount) {
+        if(productQuantity<amount)
+            throw new NotFoundException(this.productName + "의 수량이 부족합니다.");
+        this.productQuantity -= amount;
+    }
 }

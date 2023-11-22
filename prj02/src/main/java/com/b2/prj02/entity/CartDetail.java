@@ -45,4 +45,8 @@ public class CartDetail {
     public void setOption(Option option){
         this.option = option;
     }
+
+    public void updateProduct(Integer amount){
+        this.amount = amount;
+    }
 }

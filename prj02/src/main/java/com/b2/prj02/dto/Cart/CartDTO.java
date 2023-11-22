@@ -16,7 +16,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CartDTO {
-    private Long cartProductId;
     private String productName;
     private Integer amount;
     private String option;

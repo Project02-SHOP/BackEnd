@@ -1,5 +1,6 @@
 package com.b2.prj02.entity;
 
+import com.b2.prj02.exception.NotFoundException;
 import com.b2.prj02.role.CustomGrantedAuthority;
 import com.b2.prj02.role.UserStatus;
 import lombok.AllArgsConstructor;
@@ -44,7 +45,7 @@ public class User implements UserDetails {
     private String gender;
 
     @Column(name = "pay_money")
-    private Integer payMoney;
+    private Double payMoney;
 
     private UserStatus status;
 
@@ -65,6 +66,11 @@ public class User implements UserDetails {
         this.stack = 0;
     }
 
+    public void buy(Double totalPrice) {
+        if(this.payMoney<totalPrice)
+            throw new NotFoundException("잔고가 부족합니다.");
+        this.payMoney-=totalPrice;
+    }
     public void setFilePath(String filePath) {
         this.filePath = filePath;
     }
@@ -98,5 +104,4 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
 }

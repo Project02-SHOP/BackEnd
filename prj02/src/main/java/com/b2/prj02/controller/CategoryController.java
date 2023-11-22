@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/category")
 public class CategoryController {
+    private final CategoryService categoryService;
+    private final CategoryRepository categoryRepository;
+
     @PostMapping("/add")
     public ResponseEntity<?> addCategory(@RequestBody CategoryDTO categoryDTO,
                                          @RequestHeader("X-AUTH-TOKEN") String token){

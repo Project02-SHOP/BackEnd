@@ -12,26 +12,28 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "cart")
-public class Cart {
+@Table(name = "order")
+public class Order {
     @javax.persistence.Id
     @org.springframework.data.annotation.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cart_idx")
-    private Long cartId;
+    @Column(name = "order_idx")
+    private Long orderId;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_idx")
     private User user;
 
-    @Column(name = "total_amount")
-    private Integer totalAmount;
+    @Column(name = "product_name")
+    private String productName;
 
-    @Column(name = "total_price")
-    private Double totalPrice;
+    private Integer amount;
+    private Double price;
 
-    public void updateCart(Integer amount, Double totalPrice){
-        this.totalAmount += amount;
-        this.totalPrice += totalPrice;
+    private String option;
+
+
+    public void setOption(String option) {
+        this.option = option;
     }
 }
