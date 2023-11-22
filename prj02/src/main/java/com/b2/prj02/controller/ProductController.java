@@ -29,12 +29,12 @@ public class ProductController {
         return productService.deleteProduct(deleteProductDTO, token);
     }
 
-    @GetMapping()
+    @GetMapping("/all")
     public ResponseEntity<?> findAllProduct(){
         return ResponseEntity.status(200).body(productRepository.findAll());
     }
 
-    @GetMapping("/{productName}")
+    @GetMapping("search/{productName}")
     public ResponseEntity<?> findByProductName(@PathVariable("productName") String productName){
         return ResponseEntity.status(200).body(productRepository.findByProductName(productName));
     }

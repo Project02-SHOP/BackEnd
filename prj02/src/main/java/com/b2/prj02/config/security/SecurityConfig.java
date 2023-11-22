@@ -31,8 +31,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/api/user/**").permitAll()
-                .antMatchers("/api/shop/**").hasAnyRole("USER", "SELLER")
-                .antMatchers("/api/product/**").hasRole("SELLER")
+                .antMatchers("/api/product/all", "/api/product/search/**", "/api/order/**").hasAnyRole("USER", "SELLER")
+                .antMatchers("/api/product/add", "/api/prodcut/delete", "/api/option/**").hasRole("SELLER")
+                .antMatchers("/api/category/**").hasRole("MASTER")
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),

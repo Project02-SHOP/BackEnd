@@ -4,5 +4,5 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.persistence.Enumerated;
 public enum UserStatus {
-    SELLER, USER, DELETED;
+    SELLER, USER, DELETED, MASTER;
 }
