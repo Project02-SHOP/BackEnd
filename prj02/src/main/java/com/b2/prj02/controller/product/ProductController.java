@@ -51,24 +51,5 @@ public class ProductController {
     }
 
 
-    // 페이지네이션
-    @RequestMapping("/api/products")
-
-        @Autowired
-        private ProductService productService;
-
-        @GetMapping
-        public ResponseEntity<Page<ProductEntity>> getProductsByPage(
-                @RequestParam(defaultValue = "0") int pageNumber,
-                @RequestParam(defaultValue = "10") int pageSize) {
-
-            Page<ProductEntity> productsPage = productService.getProductsByPage(pageNumber, pageSize);
-            return ResponseEntity.ok(productsPage);
-        }
-
-        // 다른 핸들러 메서드 및 기능들은 생략
-    }
-
-
 
 }
