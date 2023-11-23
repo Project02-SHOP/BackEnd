@@ -33,7 +33,8 @@ public class ProductController {
 
         return ResponseEntity.ok(productListResponse);
     }
-
+    // api/shop 엔드포인트로 들어오는 요청에 대해 페이지네이션을 적용하도록 변경
+    // 페이지네이션 처리는 Pageable 객체를 이용하여 Spring Data JPA에서 자동으로 처리
 
 
     //상품 상세 조회
@@ -49,6 +50,24 @@ public class ProductController {
         }
     }
 
+
+    // 페이지네이션
+    @RequestMapping("/api/products")
+
+        @Autowired
+        private ProductService productService;
+
+        @GetMapping
+        public ResponseEntity<Page<ProductEntity>> getProductsByPage(
+                @RequestParam(defaultValue = "0") int pageNumber,
+                @RequestParam(defaultValue = "10") int pageSize) {
+
+            Page<ProductEntity> productsPage = productService.getProductsByPage(pageNumber, pageSize);
+            return ResponseEntity.ok(productsPage);
+        }
+
+        // 다른 핸들러 메서드 및 기능들은 생략
+    }
 
 
 
