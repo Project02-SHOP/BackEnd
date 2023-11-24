@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -24,11 +24,11 @@ public class ProductEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_idx")
-    private CategoryEntity categoryId;
+    private CategoryEntity category;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_idx")
-    private User userId;
+    private User user;
 
     @Column(name = "product_name")
     private String productName;
@@ -43,9 +43,9 @@ public class ProductEntity {
     @Column(name = "register_date")
     private LocalDateTime registerDate; //
 
-    @Temporal(TemporalType.DATE)
+
     @Column(name = "sale_enddate")//sale_end_date로 바꿔야할 듯.
-    private Date saleEndDate; //
+    private LocalDateTime saleEndDate; //
 
     @Column(name = "product_detail")
     private String productDetail;
@@ -53,14 +53,17 @@ public class ProductEntity {
     private String img1;
     private String img2;
     private String img3;
-    private String option;
+
+    @ElementCollection
+    @CollectionTable(name = "product_options", joinColumns = @JoinColumn(name = "product_idx"))
+    private List<String> option;
 
 
     @Builder
-    public ProductEntity(Long productId, CategoryEntity categoryId, User userId, String productName, double price, int productQuantity, LocalDateTime registerDate, Date saleEndDate, String productDetail, String img1, String img2, String img3, String option) {
+    public ProductEntity(Long productId, CategoryEntity category, User user, String productName, double price, int productQuantity, LocalDateTime registerDate, LocalDateTime saleEndDate, String productDetail, String img1, String img2, String img3, List<String> option) {
         this.productId = productId;
-        this.categoryId = categoryId;
-        this.userId = userId;
+        this.category = category;
+        this.user = user;
         this.productName = productName;
         this.price = price;
         this.productQuantity = productQuantity;
@@ -73,17 +76,19 @@ public class ProductEntity {
         this.option = option;
     }
 
+
     //DTO to Entity
     public static ProductEntity fromDto(ProductDTO product) {
         return ProductEntity.builder()
                 .productId(product.getProductId())
-                .userId(User.builder().userId(product.getUserId()).build())//
-                .categoryId(CategoryEntity.builder().categoryId(product.getCategoryId()).build())//
+                //.userId(User.builder().userId(product.getUserId()).build())
+                .user(User.builder().userId(product.getUserId()).build())
+                .category(CategoryEntity.builder().categoryId(product.getCategoryId()).build())//
                 .productName(product.getProductName())
                 .price(product.getPrice())
                 .productQuantity(product.getProductQuantity())
-                .registerDate(product.getRegDate().toLocalDateTime())//
-                .saleEndDate(product.getEndDate())
+                .registerDate(product.getRegDate().toLocalDateTime())
+                .saleEndDate(product.getEndDate().toLocalDateTime())
                 .productDetail(product.getDetail())
                 .img1(product.getImg1())
                 .img2(product.getImg2())
@@ -96,13 +101,13 @@ public class ProductEntity {
     public ProductDTO toDto() {
         return ProductDTO.builder()
                 .productId(productId)
-                .userId(userId.getUserId())
-                .categoryId(categoryId.getCategoryId())
+                .userId(user.getUserId())
+                .categoryId(category.getCategoryId())
                 .productName(productName)
                 .price(price)
                 .productQuantity(productQuantity)
                 .regDate(Timestamp.valueOf(registerDate))
-                .endDate((Timestamp) saleEndDate)
+                .endDate(Timestamp.valueOf(saleEndDate))
                 .detail(productDetail)
                 .img1(img1)
                 .img2(img2)

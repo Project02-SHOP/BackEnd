@@ -6,16 +6,12 @@ import com.b2.prj02.exception.product.ProductNotFoundException;
 import com.b2.prj02.repository.product.ProductRepository;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
-import java.rmi.NotBoundException;
 import java.util.Optional;
 
 
-@Slf4j
+
 @Service
 @Builder
 @RequiredArgsConstructor

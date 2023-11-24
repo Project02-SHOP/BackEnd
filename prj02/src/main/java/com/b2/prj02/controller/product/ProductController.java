@@ -4,7 +4,6 @@ import com.b2.prj02.dto.product.ProductDTO;
 import com.b2.prj02.exception.product.ProductNotFoundException;
 import com.b2.prj02.service.product.ProductService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-@Slf4j
+
 @RestController
 @RequestMapping("/api/shop")
 @RequiredArgsConstructor
