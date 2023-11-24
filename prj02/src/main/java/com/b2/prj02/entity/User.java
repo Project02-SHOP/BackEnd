@@ -40,6 +40,8 @@ public class User implements UserDetails {
     @Column(name = "pay_money")
     private Integer payMoney;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status") //여기 수정
     private UserStatus status;
 
     public User updateStatus(UserStatus newStatus) {

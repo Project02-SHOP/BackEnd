@@ -21,7 +21,7 @@ public class CartEntity{
     private Long cartId;
 
     @OneToOne
-    @JoinColumn(name = "user_idx")
+    @JoinColumn(name = "userId") // UserEntity 보고 여기 수정
     private User user;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
@@ -52,7 +52,6 @@ public class CartEntity{
 
     public CartEntity createCart(User cartUser) {
         return CartEntity.builder()
-                .cartId(this.cartId)
                 .user(cartUser)
                 .cartItems(new ArrayList<>())
                 .totalPrice(this.totalPrice)
