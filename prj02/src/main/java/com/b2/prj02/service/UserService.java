@@ -61,7 +61,7 @@ public class UserService {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("비밀번호를 다시 확인해주세요.");
         }
 
-        String newToken = jwtTokenProvider.createToken(user.getEmail(), loginUser.get().getStatus());
+        String newToken = jwtTokenProvider.createToken(loginUser.get(), loginUser.get().getStatus());
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(newToken);
         return ResponseEntity.status(200).headers(headers).body("반갑습니다 " + user.getEmail() + "님");

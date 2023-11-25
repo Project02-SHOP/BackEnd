@@ -1,6 +1,7 @@
 package com.b2.prj02.service.jwt;
 
 
+import com.b2.prj02.entity.User;
 import com.b2.prj02.role.UserStatus;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -38,8 +39,20 @@ public class JwtTokenProvider {
     }
 
     // JWT 토큰 생성
-    public String createToken(String email, UserStatus status) {
-        Claims claims = Jwts.claims().setSubject(email);
+//    public String createToken(String email, UserStatus status) {
+//        Claims claims = Jwts.claims().setSubject(email);
+//        claims.put("role", status); // 정보는 key/value 쌍으로 저장됩니다.
+//        Date now = new Date();
+//        return Jwts.builder()
+//                .setClaims(claims) // 정보 저장
+//                .setIssuedAt(now) // 토큰 발행 시간
+//                .setExpiration(new Date(now.getTime() + tokenValidTime)) // 토큰 유효 시간
+//                .signWith(SignatureAlgorithm.HS256, secretKey)  // 사용할 암호화 알고리즘
+//                .compact();
+//    }
+    public String createToken(User loginUser, UserStatus status) {
+        Claims claims = Jwts.claims().setSubject(loginUser.getEmail());
+        claims.put("id", loginUser.getUserId());
         claims.put("role", status); // 정보는 key/value 쌍으로 저장됩니다.
         Date now = new Date();
         return Jwts.builder()
@@ -49,6 +62,7 @@ public class JwtTokenProvider {
                 .signWith(SignatureAlgorithm.HS256, secretKey)  // 사용할 암호화 알고리즘
                 .compact();
     }
+
 
     // JWT 토큰에서 인증 정보 조회
     public Authentication getAuthentication(String token) {
