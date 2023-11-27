@@ -1,4 +1,4 @@
-package com.b2.prj02.shop.Exception;
+package com.b2.prj02.Exception;
 
 import com.sun.istack.NotNull;
 import org.springframework.dao.DataIntegrityViolationException;
