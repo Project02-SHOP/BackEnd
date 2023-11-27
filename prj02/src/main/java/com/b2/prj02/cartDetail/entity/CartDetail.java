@@ -1,13 +1,14 @@
-package com.b2.prj02.entity;
+package com.b2.prj02.cartDetail.entity;
 
+import com.b2.prj02.cart.entity.Cart;
+import com.b2.prj02.option.entity.Option;
+import com.b2.prj02.product.entity.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
-import java.util.Optional;
 
 @Entity
 @Getter

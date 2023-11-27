@@ -1,4 +1,4 @@
-package com.b2.prj02.entity;
+package com.b2.prj02.category.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,21 +12,14 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "option")
-public class Option {
+@Table(name = "category")
+public class Category {
     @javax.persistence.Id
     @org.springframework.data.annotation.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "option_idx")
-    private Long optionId;
+    @Column(name = "category_idx")
+    private Long categoryId;
 
-    @ManyToOne
-    @JoinColumn(name = "product_idx")
-    private Product product;
-
-    private String option;
-
-    @Column(name = "option_price")
-    private Double optionPrice;
-
+    @Column(name = "category_name")
+    private String categoryName;
 }

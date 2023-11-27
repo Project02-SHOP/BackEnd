@@ -2,13 +2,23 @@ package com.b2.prj02.cart.service;
 
 import com.b2.prj02.cart.dto.CartDTO;
 import com.b2.prj02.cart.dto.DeleteCartDTO;
-import com.b2.prj02.entity.*;
-import com.b2.prj02.exception.NotFoundException;
-import com.b2.prj02.repository.*;
-import com.b2.prj02.service.jwt.JwtTokenProvider;
+import com.b2.prj02.cart.entity.Cart;
+import com.b2.prj02.cart.repository.CartRepository;
+import com.b2.prj02.cartDetail.entity.CartDetail;
+import com.b2.prj02.cartDetail.repository.CartDetailRepository;
+import com.b2.prj02.config.security.jwt.JwtTokenProvider;
+import com.b2.prj02.option.entity.Option;
+import com.b2.prj02.option.repository.OptionRepository;
+import com.b2.prj02.order.entity.Order;
+import com.b2.prj02.order.repository.OrderRepository;
+import com.b2.prj02.product.entity.Product;
+import com.b2.prj02.product.repository.ProductRepository;
+import com.b2.prj02.user.entity.User;
+import com.b2.prj02.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -32,10 +42,10 @@ public class CartService {
         Optional<User> user = userRepository.findByEmail(email);
 
         if(product.isEmpty())
-            throw new NotFoundException("상품명을 확인해주세요.");
+            throw new DisabledException("상품명을 확인해주세요.");
 
         if(email==null || user.isEmpty())
-            throw new NotFoundException("로그인을 다시 해주세요.");
+            throw new DisabledException("로그인을 다시 해주세요.");
 
         Optional<Cart> cart = cartRepository.findByUser(user.get());
 
@@ -80,10 +90,10 @@ public class CartService {
         Optional<User> user = userRepository.findByEmail(email);
 
         if(product.isEmpty())
-            throw new NotFoundException("상품명을 확인해주세요.");
+            throw new DisabledException("상품명을 확인해주세요.");
 
         if(email==null || user.isEmpty())
-            throw new NotFoundException("로그인을 다시 해주세요.");
+            throw new DisabledException("로그인을 다시 해주세요.");
 //        토큰값의 카트 유저의 카트에 상품이 있는지
         List<CartDetail> userCartProductList = cartDetailRepository.findByCartUserEmail(email);
 
@@ -93,7 +103,7 @@ public class CartService {
                 return ResponseEntity.status(200).body("상품이 성공적으로 제거되었습니다.");
             }
         }
-        throw new NotFoundException("고객님의 장바구니에 해당 물품이 없습니다.");
+        throw new DisabledException("고객님의 장바구니에 해당 물품이 없습니다.");
     }
 
     public ResponseEntity<?> updateProductToCart(CartDTO cartDTO, String token) {
@@ -102,10 +112,10 @@ public class CartService {
         Optional<User> user = userRepository.findByEmail(email);
 
         if(product.isEmpty())
-            throw new NotFoundException("상품명을 확인해주세요.");
+            throw new DisabledException("상품명을 확인해주세요.");
 
         if(email==null || user.isEmpty())
-            throw new NotFoundException("로그인을 다시 해주세요.");
+            throw new DisabledException("로그인을 다시 해주세요.");
 
         List<CartDetail> userCartProductList = cartDetailRepository.findByCartUserEmail(email);
 
@@ -116,7 +126,7 @@ public class CartService {
                 return ResponseEntity.status(200).body("상품이 성공적으로 수정되었습니다.");
             }
         }
-        throw new NotFoundException("고객님의 장바구니에 해당 물품이 없습니다.");
+        throw new DisabledException("고객님의 장바구니에 해당 물품이 없습니다.");
     }
 
 
@@ -141,7 +151,7 @@ public class CartService {
             return ResponseEntity.status(200).body(cartRepository.findByUserEmail(email));
         }
 
-        throw new NotFoundException("로그인을 다시 해주세요.");
+        throw new DisabledException("로그인을 다시 해주세요.");
     }
 
     @Transactional
@@ -153,10 +163,10 @@ public class CartService {
 //        계산 User의 paymoney에서 totalmoney 빼고 저장
 //        cartDetail의 상품의 수량, 옵션이면 옵션 수량에서 빼고 저장
         if(user.isEmpty())
-            throw new NotFoundException("로그인을 다시 해주세요.");
+            throw new DisabledException("로그인을 다시 해주세요.");
 
         if(myCart.isEmpty())
-            throw new NotFoundException("장바구니가 비어있습니다.");
+            throw new DisabledException("장바구니가 비어있습니다.");
 
         user.get().buy(myCart.get().getTotalPrice());
 

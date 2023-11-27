@@ -1,5 +1,6 @@
-package com.b2.prj02.entity;
+package com.b2.prj02.cart.entity;
 
+import com.b2.prj02.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

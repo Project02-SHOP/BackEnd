@@ -31,11 +31,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 
-        // 판매자 권한이 있는 경우 추가 부여
-        if (user.isSeller()) {
-            authorities.add(new SimpleGrantedAuthority("ROLE_SELLER"));
-        }
-
         // UserDetails 객체 반환
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(),

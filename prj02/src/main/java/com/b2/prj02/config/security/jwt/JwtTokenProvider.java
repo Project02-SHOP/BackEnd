@@ -1,5 +1,6 @@
 package com.b2.prj02.config.security.jwt;
 
+import com.b2.prj02.user.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;

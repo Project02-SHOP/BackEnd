@@ -1,6 +1,7 @@
 package com.b2.prj02.config.security;
 
-import com.b2.prj02.service.jwt.JwtTokenProvider;
+import com.b2.prj02.config.security.jwt.JwtAuthenticationFilter;
+import com.b2.prj02.config.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

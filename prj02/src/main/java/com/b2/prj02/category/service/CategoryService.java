@@ -1,12 +1,12 @@
 package com.b2.prj02.category.service;
 
 import com.b2.prj02.category.dto.CategoryDTO;
-import com.b2.prj02.entity.Category;
-import com.b2.prj02.exception.NotFoundException;
-import com.b2.prj02.repository.CategoryRepository;
+import com.b2.prj02.category.entity.Category;
+import com.b2.prj02.category.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -32,7 +32,7 @@ public class CategoryService {
             return ResponseEntity.status(200).body(categoryDTO.getCategoryName() + "이 정상적으로 삭제되었습니다.");
         }
         else {
-            throw new NotFoundException("없는 카테고리입니다.");
+            throw new DisabledException("없는 카테고리입니다.");
         }
     }
 }

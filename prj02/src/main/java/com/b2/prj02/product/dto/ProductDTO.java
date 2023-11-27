@@ -1,9 +1,6 @@
 package com.b2.prj02.product.dto;
 
-import com.b2.prj02.entity.Category;
 import lombok.*;
-
-import java.sql.Timestamp;
 
 @Getter
 @Setter

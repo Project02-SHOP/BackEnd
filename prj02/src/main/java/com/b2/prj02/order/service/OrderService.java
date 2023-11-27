@@ -1,11 +1,11 @@
 package com.b2.prj02.order.service;
 
-import com.b2.prj02.exception.NotFoundException;
-import com.b2.prj02.repository.OrderRepository;
-import com.b2.prj02.service.jwt.JwtTokenProvider;
+import com.b2.prj02.config.security.jwt.JwtTokenProvider;
+import com.b2.prj02.order.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,7 +18,7 @@ public class OrderService {
         String email = jwtTokenProvider.findEmailBytoken(token);
 
         if(email==null)
-            throw new NotFoundException("로그인을 다시 해주세요.");
+            throw new DisabledException("로그인을 다시 해주세요.");
 
         return ResponseEntity.status(200).body(orderRepository.findByUserEmail(email));
     }
@@ -27,7 +27,7 @@ public class OrderService {
         String email = jwtTokenProvider.findEmailBytoken(token);
 
         if(email==null)
-            throw new NotFoundException("로그인을 다시 해주세요.");
+            throw new DisabledException("로그인을 다시 해주세요.");
 
         return ResponseEntity.status(200).body(orderRepository.total(email));
     }

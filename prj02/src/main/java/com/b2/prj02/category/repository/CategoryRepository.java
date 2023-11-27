@@ -1,6 +1,6 @@
-package com.b2.prj02.repository;
+package com.b2.prj02.category.repository;
 
-import com.b2.prj02.entity.Category;
+import com.b2.prj02.category.entity.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,7 +1,7 @@
 package com.b2.prj02.category.controller;
 
 import com.b2.prj02.category.dto.CategoryDTO;
-import com.b2.prj02.repository.CategoryRepository;
+import com.b2.prj02.category.repository.CategoryRepository;
 import com.b2.prj02.category.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

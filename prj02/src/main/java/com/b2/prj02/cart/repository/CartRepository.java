@@ -1,13 +1,10 @@
-package com.b2.prj02.repository;
+package com.b2.prj02.cart.repository;
 
-import com.b2.prj02.entity.Cart;
-import com.b2.prj02.entity.Category;
-import com.b2.prj02.entity.Option;
-import com.b2.prj02.entity.User;
+import com.b2.prj02.cart.entity.Cart;
+import com.b2.prj02.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 
 @Repository

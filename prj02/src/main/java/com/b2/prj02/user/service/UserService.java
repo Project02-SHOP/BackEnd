@@ -47,7 +47,7 @@ public class UserService {
                 .filePath(userData.getFilePath())
                 .userRole(userData.getUserRole())
                 .userActiveStatus(UserActiveStatus.ACTIVE)
-                .payMoney(0)
+                .payMoney(0.0)
                 .stack(0)
                 .build();
     }
@@ -93,7 +93,7 @@ public class UserService {
         TokenBlacklist.addToBlacklist(token);
     }
     @Transactional
-    public User deleteUser(String token, UserDeleteRequestDTO deleteUser) {
+    public void deleteUser(String token, UserDeleteRequestDTO deleteUser) {
         User user = checkToken(token);
         if (!user.getEmail().equals(deleteUser.getEmail()) && !passwordEncoder.matches(deleteUser.getPassword(), user.getPassword())) {
             throw new BadCredentialsException("이메일과 비밀번호를 다시 확인해주세요.");
@@ -101,7 +101,6 @@ public class UserService {
         user.deleteUser();
         TokenBlacklist.addToBlacklist(token);
         userRepository.save(user);
-        return user;
     }
 
     public String saveImage(MultipartFile file) throws IOException {

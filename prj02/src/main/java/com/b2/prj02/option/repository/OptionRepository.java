@@ -1,7 +1,7 @@
-package com.b2.prj02.repository;
+package com.b2.prj02.option.repository;
 
-import com.b2.prj02.entity.Option;
-import com.b2.prj02.entity.Product;
+import com.b2.prj02.option.entity.Option;
+import com.b2.prj02.product.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -2,7 +2,7 @@ package com.b2.prj02.product.controller;
 
 import com.b2.prj02.product.dto.DeleteProductDTO;
 import com.b2.prj02.product.dto.ProductDTO;
-import com.b2.prj02.repository.ProductRepository;
+import com.b2.prj02.product.repository.ProductRepository;
 import com.b2.prj02.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

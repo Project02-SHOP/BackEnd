@@ -1,10 +1,13 @@
-package com.b2.prj02.entity;
+package com.b2.prj02.product.entity;
 
-import com.b2.prj02.exception.NotFoundException;
+import com.b2.prj02.category.entity.Category;
+import com.b2.prj02.option.entity.Option;
+import com.b2.prj02.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.authentication.DisabledException;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -56,7 +59,7 @@ public class Product {
 
     public void buy(Integer amount) {
         if(productQuantity<amount)
-            throw new NotFoundException(this.productName + "의 수량이 부족합니다.");
+            throw new DisabledException(this.productName + "의 수량이 부족합니다.");
         this.productQuantity -= amount;
     }
 }
