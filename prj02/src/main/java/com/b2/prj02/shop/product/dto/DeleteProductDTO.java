@@ -8,5 +8,5 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DeleteProductDTO {
-    private String productName;
+    private Long productId;
 }

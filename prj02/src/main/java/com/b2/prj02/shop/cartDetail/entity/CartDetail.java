@@ -34,7 +34,7 @@ public class CartDetail {
     private Integer amount;
     private Double price;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "option_idx")
     private Option option;
 
@@ -44,7 +44,7 @@ public class CartDetail {
     }
 
     public void setOption(Option option){
-        this.option = option;
+        this.option= option;
     }
 
     public void updateProduct(Integer amount){

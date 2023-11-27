@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/product")
@@ -23,6 +25,7 @@ public class ProductController {
         return productService.addProduct(productDTO, token);
     }
 
+    @Transactional
     @DeleteMapping("/delete")
     public ResponseEntity<?> deleteProduct(@RequestBody DeleteProductDTO deleteProductDTO,
                                             @RequestHeader("X-AUTH-TOKEN") String token){
@@ -34,8 +37,8 @@ public class ProductController {
         return ResponseEntity.status(200).body(productRepository.findAll());
     }
 
-    @GetMapping("search/{productName}")
-    public ResponseEntity<?> findByProductName(@PathVariable("productName") String productName){
+    @GetMapping()
+    public ResponseEntity<?> findByProductName(@RequestParam("productName") String productName){
         return ResponseEntity.status(200).body(productRepository.findByProductName(productName));
     }
 }

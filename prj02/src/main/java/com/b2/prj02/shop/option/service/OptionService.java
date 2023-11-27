@@ -23,7 +23,7 @@ public class OptionService {
     private final JwtTokenProvider jwtTokenProvider;
     private final OptionRepository optionRepository;
     public ResponseEntity<?> addOptionToProduct(OptionDTO optionDTO, String token) {
-        Optional<Product> product = productRepository.findByProductName(optionDTO.getProductName());
+        Optional<Product> product = productRepository.findByProductId(optionDTO.getProductId());
 
         if(product.isEmpty())
             throw new DisabledException("없는 상품입니다.");
@@ -41,11 +41,11 @@ public class OptionService {
                 .build();
 
         optionRepository.save(newOption);
-        return ResponseEntity.status(200).body(optionDTO.getProductName() + " 상품에 " + optionDTO.getOption() + " 옵션이 추가되었습니다.");
+        return ResponseEntity.status(200).body(product.get().getProductName() + " 상품에 " + optionDTO.getOption() + " 옵션이 추가되었습니다.");
     }
 
     public ResponseEntity<?> deleteOptionToProduct(DeleteOptionDTO deleteOptionDTO, String token) {
-        Optional<Product> product = productRepository.findByProductName(deleteOptionDTO.getProductName());
+        Optional<Product> product = productRepository.findByProductId(deleteOptionDTO.getProductId());
 
         if(product.isEmpty())
             throw new DisabledException("없는 상품입니다.");
@@ -57,17 +57,17 @@ public class OptionService {
             throw new DisabledException("다른 유저의 상품입니다.");
 
         optionRepository.deleteByOption(deleteOptionDTO.getOption());
-        return ResponseEntity.status(200).body(deleteOptionDTO.getProductName() + " 상품에 " + deleteOptionDTO.getOption() + " 옵션이 제거되었습니다.");
+        return ResponseEntity.status(200).body(product.get().getProductName() + " 상품에 " + deleteOptionDTO.getOption() + " 옵션이 제거되었습니다.");
     }
 
-    public ResponseEntity<?> findAllOptionToProduct(String productName) {
-        Optional<Product> product = productRepository.findByProductName(productName);
+    public ResponseEntity<?> findAllOptionToProduct(Long productId) {
+        Optional<Product> product = productRepository.findByProductId(productId);
 
         if(product.isEmpty())
             throw new DisabledException("없는 상품입니다.");
 
         if(optionRepository.findByProduct(product.get()).isEmpty())
-            return ResponseEntity.status(200).body(productName + "상품에는 옵션이 없습니다.");
+            return ResponseEntity.status(200).body(product.get().getProductName() + "상품에는 옵션이 없습니다.");
 
         return ResponseEntity.status(200).body(optionRepository.findByProduct(product.get()));
     }

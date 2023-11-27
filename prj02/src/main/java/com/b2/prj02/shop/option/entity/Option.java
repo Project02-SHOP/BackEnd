@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "option")
+@Table(name = "product_option")
 public class Option {
     @javax.persistence.Id
     @org.springframework.data.annotation.Id
@@ -25,6 +25,7 @@ public class Option {
     @JoinColumn(name = "product_idx")
     private Product product;
 
+    @Column(name = "product_option")
     private String option;
 
     @Column(name = "option_price")

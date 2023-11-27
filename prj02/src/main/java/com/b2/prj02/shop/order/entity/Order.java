@@ -7,13 +7,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "order")
+@Table(name = "product_order")
 public class Order {
     @javax.persistence.Id
     @org.springframework.data.annotation.Id
@@ -28,9 +29,13 @@ public class Order {
     @Column(name = "product_name")
     private String productName;
 
+    @Column(name = "order_date")
+    private Timestamp orderDate;
+
     private Integer amount;
     private Double price;
 
+    @Column(name = "product_option")
     private String option;
 
 

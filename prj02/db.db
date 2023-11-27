@@ -12,10 +12,10 @@ CREATE TABLE `user` (
 	`file_path` LONGTEXT, #이미지 파일 경로
 	`address` varchar(100) CHARACTER SET utf8mb4 ,
 	`gender` varchar(100) CHARACTER SET utf8mb4 NOT NULL,
-	`pay_money` INTEGER,
+	`pay_money` DOUBLE,
 	`user_active_status` ENUM('ACTIVE', 'DELETED'),
 	`stack` INTEGER DEFAULT  0 NOT NULL,
-    `user_role` varchar(100) NOT NULL
+    `user_role` ENUM('USER', 'SELLER') NOT NULL
 );
 
 CREATE TABLE `category` (
@@ -31,14 +31,23 @@ CREATE TABLE `product` (
 	`price` double, #가격
 	`product_quantity` Integer, #재고수량
 	`register_date` TIMESTAMP NOT NULL default CURRENT_TIMESTAMP, #등록일
-	`sale_enddate` TIMESTAMP NOT NULL, #판매종료날짜
+	`sale_end_date` TIMESTAMP NOT NULL default CURRENT_TIMESTAMP, #판매종료날짜
 	`product_detail` LONGTEXT, #상품 설명
 	`img1` LONGTEXT, #이미지1
 	`img2` LONGTEXT, #이미지2
 	`img3` LONGTEXT, #이미지3
-	`option` VARCHAR(20), #옵션
-    FOREIGN KEY (category_idx) REFERENCES `category`(category_idx)
+    FOREIGN KEY (category_idx) REFERENCES `category`(category_idx),
+    FOREIGN KEY (user_idx) REFERENCES `user`(user_idx)
 );
+
+CREATE TABLE `product_option` (
+	`option_idx` BIGINT auto_increment primary KEY, #옵션 번호
+	`product_idx` BIGINT NOT NULL, #상품 번호
+	`product_option` varchar(20), #옵션 내용
+    `option_price` double, #옵션 가격
+    FOREIGN KEY (product_idx) REFERENCES `product`(product_idx)
+);
+
 
 CREATE TABLE `cart` (
 	`cart_idx` BIGINT auto_increment primary KEY, #장바구니번호
@@ -54,32 +63,17 @@ CREATE TABLE `cart_detail` (
 	`product_idx` BIGINT NOT NULL, #상품번호
 	`amount` INTEGER, #수량
 	`price` double, #가격
-	`option` varchar(20), #옵션
     FOREIGN KEY (product_idx) REFERENCES product(product_idx),
 	FOREIGN KEY (cart_idx) REFERENCES cart(cart_idx)
 );
 
-CREATE TABLE `order` (
+CREATE TABLE `product_order` (
 	`order_idx` BIGINT auto_increment primary KEY, #주문번호
 	`user_idx` BIGINT NOT NULL , #유저번호
+	`product_name` VarChar(20) NOT NULL,
 	`order_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP, #주문일자
-	`total_amount` INTEGER, #총 수량
-	`total_price` double, #총 가격
-    FOREIGN KEY (user_idx) REFERENCES `user`(user_idx)
-);
-
-CREATE TABLE `order_detail` (
-	`order_detail_idx` BIGINT auto_increment primary key, #주문상세번호
-	`order_idx` BIGINT NOT NULL, #주문번호
-	`product_idx` BIGINT NOT NULL, #상품번호
 	`amount` INTEGER, #수량
 	`price` double, #가격
-    FOREIGN KEY (order_idx) REFERENCES `order`(order_idx),
-	FOREIGN KEY (product_idx) REFERENCES `product`(product_idx)
-);
-
-CREATE TABLE `payment` (
-	`payment_idx` BIGINT auto_increment primary key, #결제번호
-	`cart_idx` BIGINT NOT NULL, #장바구니 번호
-    FOREIGN KEY (cart_idx) REFERENCES `cart` (cart_idx)
+	`product_option` Varchar(20),
+    FOREIGN KEY (user_idx) REFERENCES `user`(user_idx)
 );

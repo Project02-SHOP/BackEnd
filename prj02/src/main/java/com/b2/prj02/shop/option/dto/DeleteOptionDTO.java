@@ -8,6 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DeleteOptionDTO {
-    private String productName;
+    private Long productId;
     private String option;
 }

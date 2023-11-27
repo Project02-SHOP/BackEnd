@@ -1,20 +1,21 @@
 package com.b2.prj02.shop.cart.service;
 
+import com.b2.prj02.config.security.jwt.JwtTokenProvider;
 import com.b2.prj02.shop.cart.dto.CartDTO;
 import com.b2.prj02.shop.cart.dto.DeleteCartDTO;
+import com.b2.prj02.shop.cart.dto.UpdateCartDTO;
 import com.b2.prj02.shop.cart.entity.Cart;
 import com.b2.prj02.shop.cart.repository.CartRepository;
 import com.b2.prj02.shop.cartDetail.entity.CartDetail;
 import com.b2.prj02.shop.cartDetail.repository.CartDetailRepository;
-import com.b2.prj02.config.security.jwt.JwtTokenProvider;
 import com.b2.prj02.shop.option.entity.Option;
 import com.b2.prj02.shop.option.repository.OptionRepository;
 import com.b2.prj02.shop.order.entity.Order;
 import com.b2.prj02.shop.order.repository.OrderRepository;
 import com.b2.prj02.shop.product.entity.Product;
 import com.b2.prj02.shop.product.repository.ProductRepository;
-import com.b2.prj02.shop.user.repository.UserRepository;
 import com.b2.prj02.shop.user.entity.User;
+import com.b2.prj02.shop.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +38,7 @@ public class CartService {
     private final CartDetailRepository cartDetailRepository;
     private final OrderRepository orderRepository;
     public ResponseEntity<?> addProductToCart(CartDTO cartDTO, String token) {
-        Optional<Product> product = productRepository.findByProductName(cartDTO.getProductName());
+        Optional<Product> product = productRepository.findByProductId(cartDTO.getProductId());
         String email = jwtTokenProvider.findEmailBytoken(token);
         Optional<User> user = userRepository.findByEmail(email);
 
@@ -58,13 +59,16 @@ public class CartService {
                     .product(product.get())
                     .price(product.get().getPrice())
                     .amount(cartDTO.getAmount())
+                    .option(null)
                     .build();
 
 
             if(cartDTO.getOption()!=null){
                 Optional<Option> option = optionRepository.findByOptionAndProduct(cartDTO.getOption(), product.get());
 
-                option.ifPresent(newProduct::setOption);
+                if(option.isEmpty())
+                    throw new DisabledException("");
+                newProduct.setOption(option.get());
                 option.ifPresent(value -> newProduct.addOptionPrice(value.getOptionPrice()));
             }
 
@@ -85,7 +89,7 @@ public class CartService {
     }
 
     public ResponseEntity<?> deleteProductToCart(DeleteCartDTO deleteCartDTO, String token) {
-        Optional<Product> product = productRepository.findByProductName(deleteCartDTO.getProductName());
+        Optional<Product> product = productRepository.findByProductId(deleteCartDTO.getProductId());
         String email = jwtTokenProvider.findEmailBytoken(token);
         Optional<User> user = userRepository.findByEmail(email);
 
@@ -96,9 +100,12 @@ public class CartService {
             throw new DisabledException("로그인을 다시 해주세요.");
 //        토큰값의 카트 유저의 카트에 상품이 있는지
         List<CartDetail> userCartProductList = cartDetailRepository.findByCartUserEmail(email);
+        Optional<Cart> cart = cartRepository.findByUser(user.get());
 
         for (CartDetail userCartProduct : userCartProductList) {
             if (userCartProduct.getProduct().equals(product.get())) {
+                cart.get().updateCart(-userCartProduct.getAmount(), -userCartProduct.getPrice());
+                cartRepository.save(cart.get());
                 cartDetailRepository.deleteByProduct(product.get());
                 return ResponseEntity.status(200).body("상품이 성공적으로 제거되었습니다.");
             }
@@ -106,8 +113,8 @@ public class CartService {
         throw new DisabledException("고객님의 장바구니에 해당 물품이 없습니다.");
     }
 
-    public ResponseEntity<?> updateProductToCart(CartDTO cartDTO, String token) {
-        Optional<Product> product = productRepository.findByProductName(cartDTO.getProductName());
+    public ResponseEntity<?> updateProductToCart(UpdateCartDTO updateCartDTO, String token) {
+        Optional<Product> product = productRepository.findByProductId(updateCartDTO.getProductId());
         String email = jwtTokenProvider.findEmailBytoken(token);
         Optional<User> user = userRepository.findByEmail(email);
 
@@ -121,7 +128,7 @@ public class CartService {
 
         for (CartDetail cartDetail : userCartProductList) {
             if (cartDetail.getProduct().equals(product.get())) {
-                cartDetail.updateProduct(cartDTO.getAmount());
+                cartDetail.updateProduct(updateCartDTO.getAmount());
                 cartDetailRepository.save(cartDetail);
                 return ResponseEntity.status(200).body("상품이 성공적으로 수정되었습니다.");
             }
@@ -175,14 +182,15 @@ public class CartService {
             Optional<Product> product = productRepository.findByProductName(userCartProduct.getProduct().getProductName());
             product.get().buy(userCartProduct.getAmount());
             Order order = Order.builder()
+                    .user(user.get())
                     .productName(userCartProduct.getProduct().getProductName())
                     .amount(userCartProduct.getAmount())
                     .price(userCartProduct.getPrice())
                     .build();
 
-            if(userCartProduct.getOption()!=null)
-                order.setOption(userCartProduct.getOption().getOption());
-
+            if(userCartProduct.getOption()!=null) {
+                    order.setOption(userCartProduct.getOption().getOption());
+            }
             orderRepository.save(order);
         }
 

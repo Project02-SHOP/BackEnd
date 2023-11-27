@@ -1,7 +1,6 @@
 package com.b2.prj02.shop.product.entity;
 
 import com.b2.prj02.shop.category.entity.Category;
-import com.b2.prj02.shop.option.entity.Option;
 import com.b2.prj02.shop.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +10,6 @@ import org.springframework.security.authentication.DisabledException;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.List;
 
 @Entity
 @Getter
@@ -51,10 +49,6 @@ public class Product {
     private String img1;
     private String img2;
     private String img3;
-
-    @OneToMany
-    @JoinColumn(name = "option_idx")
-    private List<Option> option;
 
 
     public void buy(Integer amount) {

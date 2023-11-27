@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OptionDTO {
-    private String productName;
+    private Long productId;
     private String option;
     private Double optionPrice;
 }
