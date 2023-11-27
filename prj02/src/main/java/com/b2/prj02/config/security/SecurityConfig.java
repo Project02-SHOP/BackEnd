@@ -1,8 +1,6 @@
 package com.b2.prj02.config.security;
 
-import com.b2.prj02.config.CorsConfig;
-import com.b2.prj02.config.security.jwt.JwtAuthenticationFilter;
-import com.b2.prj02.config.security.jwt.JwtTokenProvider;
+import com.b2.prj02.service.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,24 +18,24 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JwtTokenProvider jwtTokenProvider;
-    private final CorsConfig corsConfig;
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
-                .cors().and()
                 .formLogin().disable()
                 .httpBasic().disable()
+                .cors().disable()
+                .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/user/**", "/error").permitAll()
-                .antMatchers("/api/product/**").hasRole("SELLER")
-                .antMatchers("/api/cart/**").permitAll()
+                .antMatchers("/api/user/**").permitAll()
+                .antMatchers("/api/product/all", "/api/product/search/**", "/api/order/**").hasAnyRole("USER", "SELLER")
+                .antMatchers("/api/product/add", "/api/prodcut/delete", "/api/option/**").hasRole("SELLER")
+                .antMatchers("/api/category/**").hasRole("MASTER")
                 .anyRequest().authenticated()
                 .and()
-                .addFilter(corsConfig.corsFilter()) // ** CorsFilter 등록 **
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
                         UsernamePasswordAuthenticationFilter.class);
     }
