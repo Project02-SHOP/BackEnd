@@ -1,7 +1,7 @@
 package com.b2.prj02.config.security.jwt;
 
-import com.b2.prj02.user.entity.User;
-import com.b2.prj02.user.repository.UserRepository;
+import com.b2.prj02.shop.user.entity.User;
+import com.b2.prj02.shop.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

@@ -1,4 +1,4 @@
-package com.b2.prj02.service.jwt;
+package com.b2.prj02.config.security.jwt;
 
 public class TokenContext {
     private static final ThreadLocal<Long> profileIdHolder = new ThreadLocal<>();
