@@ -1,10 +1,8 @@
-package com.b2.prj02.controller;
+package com.b2.prj02.cart.controller;
 
-import com.b2.prj02.dto.Cart.CartDTO;
-import com.b2.prj02.dto.Cart.DeleteCartDTO;
-import com.b2.prj02.dto.Option.DeleteOptionDTO;
-import com.b2.prj02.dto.Option.OptionDTO;
-import com.b2.prj02.service.Cart.CartService;
+import com.b2.prj02.cart.dto.CartDTO;
+import com.b2.prj02.cart.dto.DeleteCartDTO;
+import com.b2.prj02.cart.service.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

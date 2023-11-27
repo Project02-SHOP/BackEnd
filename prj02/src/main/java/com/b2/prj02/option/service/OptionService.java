@@ -1,7 +1,7 @@
-package com.b2.prj02.service.Option;
+package com.b2.prj02.option.service;
 
-import com.b2.prj02.dto.Option.DeleteOptionDTO;
-import com.b2.prj02.dto.Option.OptionDTO;
+import com.b2.prj02.option.dto.DeleteOptionDTO;
+import com.b2.prj02.option.dto.OptionDTO;
 import com.b2.prj02.entity.Option;
 import com.b2.prj02.entity.Product;
 import com.b2.prj02.exception.NotFoundException;

@@ -1,9 +1,9 @@
-package com.b2.prj02.controller;
+package com.b2.prj02.product.controller;
 
-import com.b2.prj02.dto.Product.DeleteProductDTO;
-import com.b2.prj02.dto.Product.ProductDTO;
+import com.b2.prj02.product.dto.DeleteProductDTO;
+import com.b2.prj02.product.dto.ProductDTO;
 import com.b2.prj02.repository.ProductRepository;
-import com.b2.prj02.service.Product.ProductService;
+import com.b2.prj02.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

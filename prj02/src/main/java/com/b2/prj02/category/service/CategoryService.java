@@ -1,6 +1,6 @@
-package com.b2.prj02.service.Category;
+package com.b2.prj02.category.service;
 
-import com.b2.prj02.dto.Category.CategoryDTO;
+import com.b2.prj02.category.dto.CategoryDTO;
 import com.b2.prj02.entity.Category;
 import com.b2.prj02.exception.NotFoundException;
 import com.b2.prj02.repository.CategoryRepository;

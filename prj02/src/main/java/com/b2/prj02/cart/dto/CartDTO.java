@@ -1,4 +1,4 @@
-package com.b2.prj02.dto.Cart;
+package com.b2.prj02.cart.dto;
 
 import com.b2.prj02.entity.Cart;
 import com.b2.prj02.entity.Option;

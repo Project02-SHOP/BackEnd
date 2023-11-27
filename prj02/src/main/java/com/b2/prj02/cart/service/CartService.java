@@ -1,15 +1,13 @@
-package com.b2.prj02.service.Cart;
+package com.b2.prj02.cart.service;
 
-import com.b2.prj02.dto.Cart.CartDTO;
-import com.b2.prj02.dto.Cart.DeleteCartDTO;
-import com.b2.prj02.dto.Category.CategoryDTO;
+import com.b2.prj02.cart.dto.CartDTO;
+import com.b2.prj02.cart.dto.DeleteCartDTO;
 import com.b2.prj02.entity.*;
 import com.b2.prj02.exception.NotFoundException;
 import com.b2.prj02.repository.*;
 import com.b2.prj02.service.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 

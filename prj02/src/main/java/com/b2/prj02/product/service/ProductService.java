@@ -1,7 +1,7 @@
-package com.b2.prj02.service.Product;
+package com.b2.prj02.product.service;
 
-import com.b2.prj02.dto.Product.DeleteProductDTO;
-import com.b2.prj02.dto.Product.ProductDTO;
+import com.b2.prj02.product.dto.DeleteProductDTO;
+import com.b2.prj02.product.dto.ProductDTO;
 import com.b2.prj02.entity.Category;
 import com.b2.prj02.entity.Product;
 import com.b2.prj02.exception.NotFoundException;

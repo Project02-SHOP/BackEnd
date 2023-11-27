@@ -1,7 +1,5 @@
-package com.b2.prj02.service.Order;
+package com.b2.prj02.order.service;
 
-import com.b2.prj02.entity.Product;
-import com.b2.prj02.entity.User;
 import com.b2.prj02.exception.NotFoundException;
 import com.b2.prj02.repository.OrderRepository;
 import com.b2.prj02.service.jwt.JwtTokenProvider;
@@ -9,8 +7,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @Slf4j

@@ -1,4 +1,4 @@
-package com.b2.prj02.dto.Cart;
+package com.b2.prj02.cart.dto;
 
 import lombok.*;
 

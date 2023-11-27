@@ -1,4 +1,4 @@
-package com.b2.prj02.dto.Category;
+package com.b2.prj02.category.dto;
 
 import lombok.*;
 

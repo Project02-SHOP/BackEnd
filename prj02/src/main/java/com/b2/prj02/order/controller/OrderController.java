@@ -1,6 +1,6 @@
-package com.b2.prj02.controller;
+package com.b2.prj02.order.controller;
 
-import com.b2.prj02.service.Order.OrderService;
+import com.b2.prj02.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,4 +1,4 @@
-package com.b2.prj02.dto.Product;
+package com.b2.prj02.product.dto;
 
 import lombok.*;
 

@@ -1,8 +1,8 @@
-package com.b2.prj02.controller;
+package com.b2.prj02.category.controller;
 
-import com.b2.prj02.dto.Category.CategoryDTO;
+import com.b2.prj02.category.dto.CategoryDTO;
 import com.b2.prj02.repository.CategoryRepository;
-import com.b2.prj02.service.Category.CategoryService;
+import com.b2.prj02.category.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

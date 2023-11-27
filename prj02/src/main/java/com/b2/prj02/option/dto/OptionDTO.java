@@ -1,4 +1,4 @@
-package com.b2.prj02.dto.Option;
+package com.b2.prj02.option.dto;
 
 import lombok.*;
 

@@ -1,8 +1,8 @@
-package com.b2.prj02.controller;
+package com.b2.prj02.option.controller;
 
-import com.b2.prj02.dto.Option.DeleteOptionDTO;
-import com.b2.prj02.dto.Option.OptionDTO;
-import com.b2.prj02.service.Option.OptionService;
+import com.b2.prj02.option.dto.DeleteOptionDTO;
+import com.b2.prj02.option.dto.OptionDTO;
+import com.b2.prj02.option.service.OptionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
