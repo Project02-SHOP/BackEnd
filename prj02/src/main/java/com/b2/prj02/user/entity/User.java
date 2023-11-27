@@ -1,6 +1,5 @@
 package com.b2.prj02.user.entity;
 
-import com.b2.prj02.entity.product.ProductEntity;
 import com.b2.prj02.user.role.CustomGrantedAuthority;
 import com.b2.prj02.user.role.UserActiveStatus;
 import com.b2.prj02.user.role.UserRole;
@@ -44,8 +43,6 @@ public class User implements UserDetails {
     @Column(name = "pay_money")
     private Integer payMoney;
 
-    @OneToMany(mappedBy = "userId",cascade = CascadeType.ALL)
-    private List<ProductEntity> productList;
 
     @Column(name = "user_role")
     @Enumerated(EnumType.STRING)
